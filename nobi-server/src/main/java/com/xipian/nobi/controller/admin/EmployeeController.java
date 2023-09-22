@@ -1,19 +1,21 @@
 package com.xipian.nobi.controller.admin;
 
 import com.xipian.nobi.constant.JwtClaimsConstant;
+import com.xipian.nobi.dto.EmployeeDTO;
 import com.xipian.nobi.dto.EmployeeLoginDTO;
+import com.xipian.nobi.dto.EmployeePageQueryDTO;
 import com.xipian.nobi.entity.Employee;
 import com.xipian.nobi.properties.JwtProperties;
+import com.xipian.nobi.result.PageResult;
 import com.xipian.nobi.result.Result;
 import com.xipian.nobi.service.EmployeeService;
 import com.xipian.nobi.utils.JwtUtil;
 import com.xipian.nobi.vo.EmployeeLoginVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
+@Api(tags = "员工相关接口")
 public class EmployeeController {
 
     @Autowired
@@ -38,6 +41,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation(value = "员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -67,8 +71,70 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/logout")
+    @ApiOperation(value = "员工退出")
     public Result<String> logout() {
         return Result.success();
     }
 
+    /**
+     * 员工注册
+     * @param employeeDTO
+     * @return
+     */
+    @PostMapping
+    @ApiOperation(value = "员工注册")
+    public Result register(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.save(employeeDTO);
+        return Result.success();
+    }
+
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("员工分页查询")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("员工分页查询，参数为：{}",employeePageQueryDTO);
+        PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    public Result startOrStop(@PathVariable Integer status,Long id){
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查找员工信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查找员工信息")
+    public Result<Employee> getById(@PathVariable Long id){
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 更新员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("更新员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
 }

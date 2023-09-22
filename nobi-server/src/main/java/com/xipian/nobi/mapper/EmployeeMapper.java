@@ -1,6 +1,9 @@
 package com.xipian.nobi.mapper;
 
+import com.github.pagehelper.Page;
+import com.xipian.nobi.dto.EmployeePageQueryDTO;
 import com.xipian.nobi.entity.Employee;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,5 +17,38 @@ public interface EmployeeMapper {
      */
     @Select("select * from employee where username = #{username}")
     Employee getByUsername(String username);
+
+    /**
+     * 插入员工数据
+     * @param employee
+     */
+    @Insert("insert into employee (name, username, password, phone, sex, id_number, create_user, update_user,status) " +
+            "values " +
+            "(#{name},#{username},#{password},#{phone},#{sex},#{idNumber},#{createUser},#{updateUser},#{status})")
+    void insert(Employee employee);
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+
+    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 根据主键动态更新
+     * @param employee
+     */
+    void update(Employee employee);
+
+    /**
+     * 根据id查找员工信息
+     * @param id
+     * @return
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
+
+
 
 }
