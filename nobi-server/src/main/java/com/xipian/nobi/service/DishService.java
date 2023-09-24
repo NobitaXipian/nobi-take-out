@@ -2,6 +2,7 @@ package com.xipian.nobi.service;
 
 import com.xipian.nobi.dto.DishDTO;
 import com.xipian.nobi.dto.DishPageQueryDTO;
+import com.xipian.nobi.entity.Dish;
 import com.xipian.nobi.result.PageResult;
 import com.xipian.nobi.vo.DishVO;
 
@@ -57,4 +58,12 @@ public interface DishService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * 根据分类id查询菜品
+     *
+     * @param categoryId
+     * @return
+     */
+    List<Dish> list(Long categoryId);
 }

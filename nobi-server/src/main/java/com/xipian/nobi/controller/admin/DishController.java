@@ -2,6 +2,7 @@ package com.xipian.nobi.controller.admin;
 
 import com.xipian.nobi.dto.DishDTO;
 import com.xipian.nobi.dto.DishPageQueryDTO;
+import com.xipian.nobi.entity.Dish;
 import com.xipian.nobi.result.PageResult;
 import com.xipian.nobi.result.Result;
 import com.xipian.nobi.service.DishService;
@@ -111,6 +112,19 @@ public class DishController {
     public Result<String> startOrStop(@PathVariable Integer status, Long id) {
         dishService.startOrStop(status, id);
         return Result.success();
+    }
+
+    /**
+     * 根据分类id查询菜品
+     *
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId) {
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
     }
 
 
