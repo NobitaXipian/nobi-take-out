@@ -1,5 +1,12 @@
 package com.xipian.nobi.mapper;
 
+import com.github.pagehelper.Page;
+import com.xipian.nobi.annotation.AutoFill;
+import com.xipian.nobi.dto.DishPageQueryDTO;
+import com.xipian.nobi.entity.Dish;
+import com.xipian.nobi.enumeration.OperationType;
+import com.xipian.nobi.vo.DishVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -13,5 +20,47 @@ public interface DishMapper {
      */
     @Select("select count(id) from dish where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
+
+    /**
+     * 插入菜品数据
+     *
+     * @param dish
+     */
+    @AutoFill(value = OperationType.INSERT)
+    void insert(Dish dish);
+
+    /**
+     * 菜品分页查询
+     *
+     * @param dishPageQueryDTO
+     * @return
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+
+    /**
+     * 根据主键查询菜品
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Long id);
+
+    /**
+     * 根据主键删除菜品数据
+     *
+     * @param id
+     */
+    @Delete("delete from dish where id = #{id}")
+    void deleteById(Long id);
+
+    /**
+     * 根据id动态修改菜品数据
+     *
+     * @param dish
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Dish dish);
 
 }

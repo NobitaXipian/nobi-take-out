@@ -38,3 +38,8 @@ nobi:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+  alioss:
+    endpoint: ${nobi.alioss.endpoint}
+    access-key-id: ${nobi.alioss.access-key-id}
+    access-key-secret: ${nobi.alioss.access-key-secret}
+    bucket-name: ${nobi.alioss.bucket-name}
