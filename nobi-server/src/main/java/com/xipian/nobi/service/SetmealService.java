@@ -2,7 +2,9 @@ package com.xipian.nobi.service;
 
 import com.xipian.nobi.dto.SetmealDTO;
 import com.xipian.nobi.dto.SetmealPageQueryDTO;
+import com.xipian.nobi.entity.Setmeal;
 import com.xipian.nobi.result.PageResult;
+import com.xipian.nobi.vo.DishItemVO;
 import com.xipian.nobi.vo.SetmealVO;
 
 import java.util.List;
@@ -56,4 +58,19 @@ public interface SetmealService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+
+    /**
+     * 条件查询
+     * @param setmeal
+     * @return
+     */
+    List<Setmeal> list(Setmeal setmeal);
+
+    /**
+     * 根据id查询菜品选项
+     * @param id
+     * @return
+     */
+    List<DishItemVO> getDishItemById(Long id);
 }

@@ -16,6 +16,7 @@ import com.xipian.nobi.mapper.SetmealDishMapper;
 import com.xipian.nobi.mapper.SetmealMapper;
 import com.xipian.nobi.result.PageResult;
 import com.xipian.nobi.service.SetmealService;
+import com.xipian.nobi.vo.DishItemVO;
 import com.xipian.nobi.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -167,6 +168,25 @@ public class SetmealServiceImpl implements SetmealService {
                 .status(status)
                 .build();
         setmealMapper.update(setmeal);
+    }
+
+    /**
+     * 条件查询
+     * @param setmeal
+     * @return
+     */
+    public List<Setmeal> list(Setmeal setmeal) {
+        List<Setmeal> list = setmealMapper.list(setmeal);
+        return list;
+    }
+
+    /**
+     * 根据id查询菜品选项
+     * @param id
+     * @return
+     */
+    public List<DishItemVO> getDishItemById(Long id) {
+        return setmealMapper.getDishItemBySetmealId(id);
     }
 
 }
