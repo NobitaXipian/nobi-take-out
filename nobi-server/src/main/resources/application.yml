@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: test
   main:
     allow-circular-references: true
   datasource:
@@ -37,13 +37,26 @@ logging:
 nobi:
   jwt:
     # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: itcast
+    admin-secret-key: xipian
     # 设置jwt过期时间
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    user-secret-key: nobi
+    user-ttl: 7200000
+    user-token-name: authentication
   alioss:
     endpoint: ${nobi.alioss.endpoint}
     access-key-id: ${nobi.alioss.access-key-id}
     access-key-secret: ${nobi.alioss.access-key-secret}
     bucket-name: ${nobi.alioss.bucket-name}
+  wechat:
+    appid: ${nobi.wechat.appid}
+    secret: ${nobi.wechat.secret}
+    mchid: ${nobi.wechat.mchid}
+    mchSerialNo: ${nobi.wechat.mchSerialNo}
+    privateKeyFilePath: ${nobi.wechat.privateKeyFilePath}
+    apiV3Key: ${nobi.wechat.apiV3Key}
+    weChatPayCertFilePath: ${nobi.wechat.weChatPayCertFilePath}
+    notifyUrl: ${nobi.wechat.notifyUrl}
+    refundNotifyUrl: ${nobi.wechat.refundNotifyUrl}
