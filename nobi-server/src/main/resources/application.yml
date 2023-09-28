@@ -53,10 +53,4 @@ nobi:
   wechat:
     appid: ${nobi.wechat.appid}
     secret: ${nobi.wechat.secret}
-    mchid: ${nobi.wechat.mchid}
-    mchSerialNo: ${nobi.wechat.mchSerialNo}
-    privateKeyFilePath: ${nobi.wechat.privateKeyFilePath}
-    apiV3Key: ${nobi.wechat.apiV3Key}
-    weChatPayCertFilePath: ${nobi.wechat.weChatPayCertFilePath}
-    notifyUrl: ${nobi.wechat.notifyUrl}
-    refundNotifyUrl: ${nobi.wechat.refundNotifyUrl}
+
